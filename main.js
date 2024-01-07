@@ -10,6 +10,7 @@ const degree = document.getElementById("degree");
 const description = document.querySelector(".description");
 const error = document.querySelector(".error");
 const cityName = document.querySelector(".city-name");
+const main = document.querySelector("#main");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -18,11 +19,16 @@ form.addEventListener("submit", (e) => {
 });
 
 async function getWeather(cityValue) {
+  const responseCity = await fetch(
+    `https://api.unsplash.com/search/photos?page=1&query=${cityValue}&client_id=KkUTz1t3TU1uZQEM44Y1yfS3fNDk-pyBnGKKbUBGoGk`
+  );
+  const dataCity = await responseCity.json();
+  //console.log(dataCity.results[0].urls);
   const response = await fetch(
     `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${apiKey}&units=metric`
   );
   const data = await response.json();
-  console.log(data);
+  //console.log(data);
 
   if (data.message) {
     description.classList.add("d-none");
@@ -31,6 +37,7 @@ async function getWeather(cityValue) {
       .map((word) => word[0].toUpperCase() + word.slice(1))
       .join(" ");
     error.classList.remove("d-none");
+    main.classList.remove("opacity-75");
   } else {
     description.classList.remove("d-none");
     img.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
@@ -44,5 +51,13 @@ async function getWeather(cityValue) {
     wind.innerHTML = `Wind Speed: ${data.wind.speed}m/s`;
     degree.innerHTML = `${Math.round(data.main.temp)}°C`;
     error.classList.add("d-none");
+
+    document.querySelector("body").style.backgroundImage = `url("${
+      dataCity.results[Math.floor(Math.random() * 10)].urls.regular
+    }")`;
+    document.querySelector("body").style.backgroundSize = "cover";
+    document.querySelector("body").style.backgroundRepeat = "no-repeat";
+    document.querySelector("body").style.backgroundPosition = "center";
+    main.classList.add("opacity-75");
   }
 }
