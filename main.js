@@ -38,6 +38,7 @@ async function getWeather(cityValue) {
       .join(" ");
     error.classList.remove("d-none");
     main.classList.remove("opacity-75");
+    document.querySelector("body").style.backgroundImage = ``;
   } else {
     description.classList.remove("d-none");
     img.src = `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
