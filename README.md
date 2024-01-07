@@ -4,6 +4,6 @@ This is a city weather app. When you type your city, you will see your city's we
 
 https://celebrated-blini-81d5a4.netlify.app/
 
-
-openweathermap. org/api
+<strong>USED APIS</strong> <br>
+openweathermap. org/api<br>
 unsplash. com/documentation
